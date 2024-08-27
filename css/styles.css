@@ -6,6 +6,7 @@
     --color-legend: hsl(184, 14%, 56%);
     --color-input-background: hsl(189, 41%, 97%);
     --color-primary: hsl(172, 67%, 45%);
+    --color-invalid-feedback: hsl(11, 60%, 68%);
     font-size: 24px;
 }
 
@@ -30,6 +31,11 @@ input {
 button, input {
     font-family: "Space Mono", monospace;
     height: 2rem;
+}
+
+input:focus {
+    border: 2px solid var(--color-primary);
+    caret-color: var(--color-primary);
 }
 
 button {
@@ -87,6 +93,10 @@ input::placeholder {
     font-size: .7rem;
 }
 
+.field-group.invalid-field input {
+    border: 2px solid var(--color-invalid-feedback);
+}
+
 .field-label-container {
     display: flex;
     justify-content: space-between;
@@ -94,20 +104,25 @@ input::placeholder {
 
 .invalid-field-value-message {
     display: none;
+    color: var(--color-invalid-feedback);
+}
+
+.field-group.invalid-field .invalid-field-value-message {
+    display: initial;
 }
 
 .icon-text-field {
     height: 2rem;
-    padding: .3rem .5rem;
     display: flex;
     align-items: center;
     background-color: var(--color-input-background);
     border-radius: .2rem;
+    position: relative;
 }
 
 .icon-text-field img {
-    width: .5rem;
-    margin-right: .3rem;
+    position: absolute;
+    left: .5rem;
 }
 
 .icon-text-field input {
@@ -115,6 +130,8 @@ input::placeholder {
     height: 100%;
     font-size: 1rem;
     background-color: transparent;
+    border-radius: .2rem;
+    padding: .3rem .3rem .3rem 1.2rem;
 }
 
 .tips-container {
@@ -141,10 +158,26 @@ input::placeholder {
     text-align: center;
 }
 
+.tips-container input:focus {
+    border: 2px solid var(--color-primary);
+    caret-color: var(--color-primary);
+}
+
 .tips-container button {
     font-family: "Space Mono", monospace;
     background-color: var(--color-display-background);
     color: var(--color-white);
+}
+
+.tips-container button.selected {
+    background-color: var(--color-primary);
+    color: var(--color-display-background);
+}
+
+.tips-container button:active {
+    --color-primary: hsl(172, 67%, 70%);
+    background-color: var(--color-primary);
+    color: var(--color-display-background);
 }
 
 .outputs {
@@ -202,6 +235,12 @@ input::placeholder {
     --color-primary: hsl(183, 79%, 24%);
     background-color: var(--color-primary);
     cursor: auto;
+}
+
+.reset-button:active {
+    --color-primary: hsl(172, 67%, 70%);
+    background-color: var(--color-primary);
+    color: var(--color-display-background);
 }
 
 .attribution {

@@ -15,29 +15,72 @@
 </head>
 <body>
 
-  Bill
+  <div class="container">
+    <div class="content">
+      <div class="logo-container">
+        <img src="images/logo.svg" alt="Logo" loading="lazy">
+      </div>
 
-  Select Tip %
-  5%
-  10%
-  15%
-  25%
-  50%
-  Custom
+      <div class="calculation-container">
+        <div class="inputs">
+          <div class="field-group">
+            <label for="bill-field">Bill</label>
+            <input type="text" id="bill-field">
+          </div>
 
-  Number of People
+          <div class="field-group">
+            <label for="select-tip-field">Select Tip %</label>
 
-  Tip Amount
-  / person
+            <div class="tips-container">
+              <button type="button" class="tip">5%</button>
+              <button type="button" class="tip">10%</button>
+              <button type="button" class="tip">15%</button>
+              <button type="button" class="tip">25%</button>
+              <button type="button" class="tip">50%</button>
+              <input type="text" class="tip-field">
+            </div>
+          </div>
 
-  Total
-  / person
+          <div class="field-group">
+            <label for="number-of-people-field">Number of People</label>
+            <input type="text" id="number-of-people-fiel">
+          </div>
+        </div>
 
-  Reset
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+        <div class="outputs">
+          <div class="display">
+            <div class="display-item">
+              <div class="display-info">
+                <span class="display-info-title">Tip Amount</span>
+                <span class="display-info-legend">/ person</span>
+              </div>
+
+              <div class="display-value" id="tip-amount-value">
+                $0.00
+              </div>
+            </div>
+
+            <div class="display-item">
+              <div class="display-info">
+                <span class="display-info-title">Total</span>
+                <span class="display-info-legend">/ person</span>
+              </div>
+
+              <div class="display-value" id="total-value">
+                $0.00
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="reset-button">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="https://github.com/thalesAlves758" target="_blank">Thales Alves</a>.
+    </div>
   </div>
 </body>
 </html>

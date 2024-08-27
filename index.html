@@ -25,7 +25,9 @@
         <div class="inputs">
           <div class="field-group">
             <label for="bill-field">Bill</label>
-            <input type="text" id="bill-field">
+            <div class="icon-text-field">
+              <input type="text" id="bill-field">
+            </div>
           </div>
 
           <div class="field-group">
@@ -42,8 +44,13 @@
           </div>
 
           <div class="field-group">
-            <label for="number-of-people-field">Number of People</label>
-            <input type="text" id="number-of-people-fiel">
+            <div class="field-label-container">
+              <label for="number-of-people-field">Number of People</label>
+              <span class="invalid-field-value-message">Can't be zero</span>
+            </div>
+            <div class="icon-text-field">
+              <input type="text" id="number-of-people-fiel">
+            </div>
           </div>
         </div>
 

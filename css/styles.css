@@ -3,8 +3,9 @@
     --color-white: hsl(0, 0%, 100%);
     --color-display-background: hsl(183, 100%, 15%);
     --color: hsl(186, 14%, 43%);
-    --color2: hsl(184, 14%, 56%);
+    --color-legend: hsl(184, 14%, 56%);
     --color-input-background: hsl(189, 41%, 97%);
+    --color-primary: hsl(172, 67%, 45%);
     font-size: 24px;
 }
 
@@ -18,7 +19,6 @@ body {
 }
 
 input {
-    font-family: "Space Mono", monospace;
     font-weight: 700;
     border: none;
     outline: none;
@@ -28,11 +28,17 @@ input {
 }
 
 button, input {
+    font-family: "Space Mono", monospace;
     height: 2rem;
 }
 
+button {
+    cursor: pointer;
+    border: none;
+}
+
 input::placeholder {
-    color: var(--color2);
+    color: var(--color-legend);
 }
 
 .container {
@@ -75,7 +81,9 @@ input::placeholder {
     color: var(--color);
 }
 
-.field-group label, .field-group span {
+.field-group label,
+.field-group span,
+.display-info-title {
     font-size: .7rem;
 }
 
@@ -137,12 +145,63 @@ input::placeholder {
     font-family: "Space Mono", monospace;
     background-color: var(--color-display-background);
     color: var(--color-white);
-    cursor: pointer;
 }
 
 .outputs {
     width: 50%;
     background-color: var(--color-display-background);
+    border-radius: .7rem;
+    padding: 1.7rem 1.4rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.display-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.display-info {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.display-info-title {
+    color: var(--color-white);
+}
+
+.display-info-legend {
+    font-size: .6rem;
+    color: var(--color-legend);
+}
+
+.display-value {
+    color: var(--color-primary);
+    font-size: 1.6rem;
+}
+
+.reset-button {
+    background-color: var(--color-primary);
+    border-radius: .2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .8rem;
+    color: var(--color-display-background);
+}
+
+.reset-button:disabled {
+    --color-primary: hsl(183, 79%, 24%);
+    background-color: var(--color-primary);
+    cursor: auto;
 }
 
 .attribution {

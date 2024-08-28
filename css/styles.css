@@ -256,6 +256,13 @@ input::placeholder {
     text-decoration: none;
 }
 
+@media (max-width: 827px) {
+    .tips-container input,
+    .tips-container button {
+        width: 47%;
+    }
+}
+
 @media (max-width: 660px) {
     .container {
         justify-content: end;
@@ -281,11 +288,6 @@ input::placeholder {
 
     .inputs, .outputs {
         width: 100%;
-    }
-
-    .tips-container input,
-    .tips-container button {
-        width: 47%;
     }
 
     .tips-container input::placeholder {

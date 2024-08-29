@@ -1,7 +1,9 @@
 
 const tipsButtons = document.querySelectorAll('.tip');
+const peopleNumberField = document.querySelector('#number-of-people-field');
 
 initTipsButtonsClickFunctions(tipsButtons);
+initPeopleNumberChangeFuntion(peopleNumberField);
 
 function initTipsButtonsClickFunctions(buttons) {
     buttons.forEach(button => {
@@ -14,5 +16,18 @@ function initTipsButtonsClickFunctions(buttons) {
                 }
             })
         });
+    });
+}
+
+function initPeopleNumberChangeFuntion(field) {
+    field.addEventListener('keyup', event => {
+        let fieldGroupParent = event.target.closest('.field-group');
+
+        if(event.target.value && Number(event.target.value) === 0) {
+            fieldGroupParent.classList.add('invalid-field');
+            return;
+        }
+
+        fieldGroupParent.classList.remove('invalid-field');
     });
 }

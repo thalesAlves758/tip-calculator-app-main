@@ -263,6 +263,10 @@ input::placeholder {
 }
 
 @media (max-width: 660px) {
+    :root {
+        font-size: 15px;
+    }
+
     .container {
         justify-content: end;
     }

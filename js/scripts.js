@@ -69,7 +69,8 @@ function isForbiddenKey(key) {
     const forbiddenKeys = [
         '-',
         '+',
-        ','
+        ',',
+        'e'
     ];
 
     return forbiddenKeys.includes(key);

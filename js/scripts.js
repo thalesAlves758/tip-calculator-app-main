@@ -51,7 +51,7 @@ function initIntegerNumberChangeFuntions(field) {
 
     field.addEventListener('keydown', event => {
         let fullValue = `${event.target.value}${event.key}`;
-        if(event.key === '.' || (event.key !== 'Backspace' && Number(fullValue) > Number(event.target.max))) {
+        if(event.key === '.' || (event.target.max && event.key !== 'Backspace' && Number(fullValue) > Number(event.target.max))) {
             event.preventDefault();
         }
     });

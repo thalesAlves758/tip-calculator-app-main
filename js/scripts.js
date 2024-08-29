@@ -6,9 +6,9 @@ const peopleNumberField = document.querySelector('#number-of-people-field');
 
 initDecimalFieldsStandardChangeFunctions(billField);
 
-initIntegerNumberChangeFuntions(customTipField);
+initIntegerNumberChangeFunctions(customTipField);
 
-initIntegerNumberChangeFuntions(peopleNumberField);
+initIntegerNumberChangeFunctions(peopleNumberField);
 initPeopleNumberFieldChangeFunctions(peopleNumberField);
 
 tipsButtons.forEach(button => {
@@ -46,7 +46,7 @@ function isDecimalFormatAlreadyFilledIn(value) {
     return /^[0-9]+\.[0-9]{2}$/.test(value);
 }
 
-function initIntegerNumberChangeFuntions(field) {
+function initIntegerNumberChangeFunctions(field) {
     initStandardNumberFieldChangeFunction(field);
 
     field.addEventListener('keydown', event => {

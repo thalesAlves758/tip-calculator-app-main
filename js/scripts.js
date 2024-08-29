@@ -20,7 +20,7 @@ function initTipsButtonsClickFunctions(buttons) {
 }
 
 function initPeopleNumberChangeFuntion(field) {
-    field.addEventListener('keyup', event => {
+    field.addEventListener('input', event => {
         let fieldGroupParent = event.target.closest('.field-group');
 
         if(event.target.value && Number(event.target.value) === 0) {

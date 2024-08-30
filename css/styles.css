@@ -243,14 +243,16 @@ input::placeholder {
 
 .reset-button:disabled {
     --color-primary: hsl(183, 79%, 24%);
-    background-color: var(--color-primary);
     cursor: auto;
 }
 
 .reset-button:active {
     --color-primary: hsl(172, 67%, 70%);
-    background-color: var(--color-primary);
     color: var(--color-display-background);
+}
+
+.reset-button:disabled:active {
+    --color-primary: hsl(183, 79%, 24%);
 }
 
 .attribution {

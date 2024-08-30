@@ -6,16 +6,6 @@ const billField = document.querySelector('#bill-field');
 const customTipField = document.querySelector('.tip-field');
 const peopleNumberField = document.querySelector('#number-of-people-field');
 
-tipsButtons.forEach(button => {
-    button.addEventListener('click', event => {
-        event.target.classList.toggle('selected');
-
-        unselectButtons(tipsButtons, event.target);
-
-        customTipField.value = null;
-    });
-});
-
 billField.addEventListener('input', event => {
     if(
         (!isValidDecimalKeyValue(event.data) && event.inputType !== DELETE_CONTENT_INPUT_TYPE) ||
@@ -24,6 +14,16 @@ billField.addEventListener('input', event => {
     ) {
         event.target.value = removeLastCaracter(event.target.value);
     }
+});
+
+tipsButtons.forEach(button => {
+    button.addEventListener('click', event => {
+        event.target.classList.toggle('selected');
+
+        unselectButtons(tipsButtons, event.target);
+
+        customTipField.value = null;
+    });
 });
 
 customTipField.addEventListener('input', event => {

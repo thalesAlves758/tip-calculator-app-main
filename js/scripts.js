@@ -17,13 +17,7 @@ billField.addEventListener('input', event => {
         return;
     }
 
-    const { tipAmountByPerson, totalByPerson } = calculateTip({
-        bill: billField.value,
-        peopleNumber: peopleNumberField.value,
-        tip: getSelectedTip(tipsButtons)?.value || customTipField.value
-    });
-    updateTipDisplay({ tipAmountByPerson, totalByPerson });
-    resetButton.disabled = !tipAmountByPerson && !totalByPerson;
+    handleDisplay();
 });
 
 tipsButtons.forEach(button => {
@@ -34,13 +28,7 @@ tipsButtons.forEach(button => {
 
         customTipField.value = null;
 
-        const { tipAmountByPerson, totalByPerson } = calculateTip({
-            bill: billField.value,
-            peopleNumber: peopleNumberField.value,
-            tip: getSelectedTip(tipsButtons)?.value || customTipField.value
-        });
-        updateTipDisplay({ tipAmountByPerson, totalByPerson });
-        resetButton.disabled = !tipAmountByPerson && !totalByPerson;
+        handleDisplay();
     });
 });
 
@@ -52,13 +40,7 @@ customTipField.addEventListener('input', event => {
 
     unselectButtons(tipsButtons);
 
-    const { tipAmountByPerson, totalByPerson } = calculateTip({
-        bill: billField.value,
-        peopleNumber: peopleNumberField.value,
-        tip: getSelectedTip(tipsButtons)?.value || customTipField.value
-    });
-    updateTipDisplay({ tipAmountByPerson, totalByPerson });
-    resetButton.disabled = !tipAmountByPerson && !totalByPerson;
+    handleDisplay();
 });
 
 peopleNumberField.addEventListener('input', event => {
@@ -76,13 +58,7 @@ peopleNumberField.addEventListener('input', event => {
 
     fieldGroupParent.classList.remove('invalid-field');
 
-    const { tipAmountByPerson, totalByPerson } = calculateTip({
-        bill: billField.value,
-        peopleNumber: peopleNumberField.value,
-        tip: getSelectedTip(tipsButtons)?.value || customTipField.value
-    });
-    updateTipDisplay({ tipAmountByPerson, totalByPerson });
-    resetButton.disabled = !tipAmountByPerson && !totalByPerson;
+    handleDisplay();
 });
 
 resetButton.addEventListener('click', () => {
@@ -92,6 +68,10 @@ resetButton.addEventListener('click', () => {
     customTipField.value = null;
     peopleNumberField.value = null;
 
+    handleDisplay();
+});
+
+function handleDisplay() {
     const { tipAmountByPerson, totalByPerson } = calculateTip({
         bill: billField.value,
         peopleNumber: peopleNumberField.value,
@@ -99,7 +79,7 @@ resetButton.addEventListener('click', () => {
     });
     updateTipDisplay({ tipAmountByPerson, totalByPerson });
     resetButton.disabled = !tipAmountByPerson && !totalByPerson;
-});
+}
 
 function unselectButtons(buttons, selectedButton) {
     buttons.forEach(button => {

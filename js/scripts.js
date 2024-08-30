@@ -1,3 +1,5 @@
+const MAX_TIP_VALUE = 100; 
+const DELETE_CONTENT_INPUT_TYPE = 'deleteContentBackward';
 
 const tipsButtons = document.querySelectorAll('.tip');
 const billField = document.querySelector('#bill-field');
@@ -16,25 +18,25 @@ tipsButtons.forEach(button => {
 
 billField.addEventListener('input', event => {
     if(
-        (!isValidDecimalKeyValue(event.data) && event.inputType !== 'deleteContentBackward') ||
+        (!isValidDecimalKeyValue(event.data) && event.inputType !== DELETE_CONTENT_INPUT_TYPE) ||
         (event.data === '.' && event.target.value === '.') ||
         isDecimalFormatAlreadyFilledIn(event.target.value)
     ) {
-        event.target.value = event.target.value.slice(0, -1);
+        event.target.value = removeLastCaracter(event.target.value);
     }
 });
 
 customTipField.addEventListener('input', event => {
-    if((!isValidIntegerKeyValue(event.data) && event.inputType !== 'deleteContentBackward') || Number(event.target.value) > 100) {
-        event.target.value = event.target.value.slice(0, -1);
+    if((!isValidIntegerKeyValue(event.data) && event.inputType !== DELETE_CONTENT_INPUT_TYPE) || Number(event.target.value) > MAX_TIP_VALUE) {
+        event.target.value = removeLastCaracter(event.target.value);
     }
 
     unselectButtons(tipsButtons);
 });
 
 peopleNumberField.addEventListener('input', event => {
-    if(!isValidIntegerKeyValue(event.data) && event.inputType !== 'deleteContentBackward') {
-        event.target.value = event.target.value.slice(0, -1);
+    if(!isValidIntegerKeyValue(event.data) && event.inputType !== DELETE_CONTENT_INPUT_TYPE) {
+        event.target.value = removeLastCaracter(event.target.value);
         return;
     }
 
@@ -66,6 +68,10 @@ function hasValue(fieldValue) {
 
 function isDecimalFormatAlreadyFilledIn(value) {
     return /^[0-9]+\.[0-9]{3}$/.test(value);
+}
+
+function removeLastCaracter(string) {
+    return string.slice(0, -1);
 }
 
 function isValidIntegerKeyValue(value) {

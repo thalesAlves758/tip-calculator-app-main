@@ -5,6 +5,7 @@ const tipsButtons = document.querySelectorAll('.tip');
 const billField = document.querySelector('#bill-field');
 const customTipField = document.querySelector('.tip-field');
 const peopleNumberField = document.querySelector('#number-of-people-field');
+const resetButton = document.querySelector('.reset-button');
 
 billField.addEventListener('input', event => {
     if(
@@ -13,7 +14,16 @@ billField.addEventListener('input', event => {
         isDecimalFormatAlreadyFilledIn(event.target.value)
     ) {
         event.target.value = removeLastCaracter(event.target.value);
+        return;
     }
+
+    const { tipAmountByPerson, totalByPerson } = calculateTip({
+        bill: billField.value,
+        peopleNumber: peopleNumberField.value,
+        tip: getSelectedTip(tipsButtons)?.value || customTipField.value
+    });
+    updateTipDisplay({ tipAmountByPerson, totalByPerson });
+    resetButton.disabled = !tipAmountByPerson && !totalByPerson;
 });
 
 tipsButtons.forEach(button => {
@@ -23,15 +33,32 @@ tipsButtons.forEach(button => {
         unselectButtons(tipsButtons, event.target);
 
         customTipField.value = null;
+
+        const { tipAmountByPerson, totalByPerson } = calculateTip({
+            bill: billField.value,
+            peopleNumber: peopleNumberField.value,
+            tip: getSelectedTip(tipsButtons)?.value || customTipField.value
+        });
+        updateTipDisplay({ tipAmountByPerson, totalByPerson });
+        resetButton.disabled = !tipAmountByPerson && !totalByPerson;
     });
 });
 
 customTipField.addEventListener('input', event => {
     if((!isValidIntegerKeyValue(event.data) && event.inputType !== DELETE_CONTENT_INPUT_TYPE) || Number(event.target.value) > MAX_TIP_VALUE) {
         event.target.value = removeLastCaracter(event.target.value);
+        return;
     }
 
     unselectButtons(tipsButtons);
+
+    const { tipAmountByPerson, totalByPerson } = calculateTip({
+        bill: billField.value,
+        peopleNumber: peopleNumberField.value,
+        tip: getSelectedTip(tipsButtons)?.value || customTipField.value
+    });
+    updateTipDisplay({ tipAmountByPerson, totalByPerson });
+    resetButton.disabled = !tipAmountByPerson && !totalByPerson;
 });
 
 peopleNumberField.addEventListener('input', event => {
@@ -48,6 +75,30 @@ peopleNumberField.addEventListener('input', event => {
     }
 
     fieldGroupParent.classList.remove('invalid-field');
+
+    const { tipAmountByPerson, totalByPerson } = calculateTip({
+        bill: billField.value,
+        peopleNumber: peopleNumberField.value,
+        tip: getSelectedTip(tipsButtons)?.value || customTipField.value
+    });
+    updateTipDisplay({ tipAmountByPerson, totalByPerson });
+    resetButton.disabled = !tipAmountByPerson && !totalByPerson;
+});
+
+resetButton.addEventListener('click', () => {
+    unselectButtons(tipsButtons);
+
+    billField.value = null;
+    customTipField.value = null;
+    peopleNumberField.value = null;
+
+    const { tipAmountByPerson, totalByPerson } = calculateTip({
+        bill: billField.value,
+        peopleNumber: peopleNumberField.value,
+        tip: getSelectedTip(tipsButtons)?.value || customTipField.value
+    });
+    updateTipDisplay({ tipAmountByPerson, totalByPerson });
+    resetButton.disabled = !tipAmountByPerson && !totalByPerson;
 });
 
 function unselectButtons(buttons, selectedButton) {
@@ -76,4 +127,36 @@ function removeLastCaracter(string) {
 
 function isValidIntegerKeyValue(value) {
     return /[0-9]/.test(value);
+}
+
+function calculateTip({ bill, peopleNumber, tip }) {
+    const tipResult = {
+        tipAmountByPerson: 0,
+        totalByPerson: 0
+    };
+
+    if(bill && peopleNumber && tip) {
+        bill = Number(bill);
+        peopleNumber = Number(peopleNumber);
+        tip = Number(tip);
+
+        let tipAmount = bill * tip / 100;
+
+        tipResult.tipAmountByPerson = tipAmount / peopleNumber;
+        tipResult.totalByPerson = (bill + tipAmount) / peopleNumber;
+    }
+
+    return tipResult;
+}
+
+function getSelectedTip(tipButtons) {
+    return [...tipButtons].find(button => button.classList.contains('selected'));
+}
+
+function updateTipDisplay({ tipAmountByPerson, totalByPerson }) {
+    const tipAmountEl = document.getElementById('tip-amount-value');
+    const totalEl = document.getElementById('total-value');
+
+    tipAmountEl.innerText = `$${tipAmountByPerson.toFixed(2)}`;
+    totalEl.innerText = `$${totalByPerson.toFixed(2)}`;
 }

@@ -4,13 +4,6 @@ const billField = document.querySelector('#bill-field');
 const customTipField = document.querySelector('.tip-field');
 const peopleNumberField = document.querySelector('#number-of-people-field');
 
-initDecimalFieldsStandardChangeFunctions(billField);
-
-initIntegerNumberChangeFunctions(customTipField);
-
-initIntegerNumberChangeFunctions(peopleNumberField);
-initPeopleNumberFieldChangeFunctions(peopleNumberField);
-
 tipsButtons.forEach(button => {
     button.addEventListener('click', event => {
         event.target.classList.toggle('selected');
@@ -21,73 +14,39 @@ tipsButtons.forEach(button => {
     });
 });
 
-customTipField.addEventListener('input', () => {
+billField.addEventListener('input', event => {
+    if(
+        (!isValidDecimalKeyValue(event.data) && event.inputType !== 'deleteContentBackward') ||
+        (event.data === '.' && event.target.value === '.') ||
+        isDecimalFormatAlreadyFilledIn(event.target.value)
+    ) {
+        event.target.value = event.target.value.slice(0, -1);
+    }
+});
+
+customTipField.addEventListener('input', event => {
+    if((!isValidIntegerKeyValue(event.data) && event.inputType !== 'deleteContentBackward') || Number(event.target.value) > 100) {
+        event.target.value = event.target.value.slice(0, -1);
+    }
+
     unselectButtons(tipsButtons);
 });
 
-function initDecimalFieldsStandardChangeFunctions(field) {
-    initStandardNumberFieldChangeFunction(field);
+peopleNumberField.addEventListener('input', event => {
+    if(!isValidIntegerKeyValue(event.data) && event.inputType !== 'deleteContentBackward') {
+        event.target.value = event.target.value.slice(0, -1);
+        return;
+    }
 
-    field.addEventListener('keydown', event => {
-        if(
-            (event.key === '.' && !hasValue(event.target.value)) ||
-            (isDecimalFormatAlreadyFilledIn(event.target.value) && event.key !== 'Backspace')
-        ) {
-            event.preventDefault();
-        }
-    });
-}
+    let fieldGroupParent = event.target.closest('.field-group');
 
-function hasValue(fieldValue) {
-    return fieldValue !== 0 && !!fieldValue;
-}
+    if(event.target.value && Number(event.target.value) === 0) {
+        fieldGroupParent.classList.add('invalid-field');
+        return;
+    }
 
-function isDecimalFormatAlreadyFilledIn(value) {
-    return /^[0-9]+\.[0-9]{2}$/.test(value);
-}
-
-function initIntegerNumberChangeFunctions(field) {
-    initStandardNumberFieldChangeFunction(field);
-
-    field.addEventListener('keydown', event => {
-        let fullValue = `${event.target.value}${event.key}`;
-        if(event.key === '.' || (event.target.max && event.key !== 'Backspace' && Number(fullValue) > Number(event.target.max))) {
-            event.preventDefault();
-        }
-    });
-}
-
-function initStandardNumberFieldChangeFunction(field) {
-    field.addEventListener('keydown', event => {
-        if(isForbiddenKey(event.key)) {
-            event.preventDefault();
-        }
-    });
-}
-
-function isForbiddenKey(key) {
-    const forbiddenKeys = [
-        '-',
-        '+',
-        ',',
-        'e'
-    ];
-
-    return forbiddenKeys.includes(key);
-}
-
-function initPeopleNumberFieldChangeFunctions(field) {
-    field.addEventListener('input', event => {
-        let fieldGroupParent = event.target.closest('.field-group');
-
-        if(event.target.value && Number(event.target.value) === 0) {
-            fieldGroupParent.classList.add('invalid-field');
-            return;
-        }
-
-        fieldGroupParent.classList.remove('invalid-field');
-    });
-}
+    fieldGroupParent.classList.remove('invalid-field');
+});
 
 function unselectButtons(buttons, selectedButton) {
     buttons.forEach(button => {
@@ -95,4 +54,20 @@ function unselectButtons(buttons, selectedButton) {
             button.classList.remove('selected');
         }
     });
+}
+
+function isValidDecimalKeyValue(value) {
+    return /[0-9\.]/.test(value);
+}
+
+function hasValue(fieldValue) {
+    return fieldValue !== 0 && !!fieldValue;
+}
+
+function isDecimalFormatAlreadyFilledIn(value) {
+    return /^[0-9]+\.[0-9]{3}$/.test(value);
+}
+
+function isValidIntegerKeyValue(value) {
+    return /[0-9]/.test(value);
 }

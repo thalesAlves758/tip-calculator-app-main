@@ -7,13 +7,13 @@ Esta é uma solução para o desafio [Tip calculator app no Frontend Mentor](htt
 ## Índice
 
 - [Visão Geral](#visão-geral)
-    - [O desafio](#o-desafio)
-    - [Captura de tela](#captura-de-tela)
-        - [Desktop Layout](#desktop-layout)
-        - [Mobile Layout](#mobile-layout)
-    - [Links](#links)
+  - [O desafio](#o-desafio)
+  - [Captura de tela](#captura-de-tela)
+    - [Desktop Layout](#desktop-layout)
+    - [Mobile Layout](#mobile-layout)
+  - [Links](#links)
 - [Meu processo](#meu-processo)
-    - [Construído com](#construído-com)
+  - [Construído com](#construído-com)
 - [Autor](#autor)
 
 ## Visão Geral
